@@ -1,6 +1,7 @@
 package com.example.event_managment.event_managment.controller;
 
 import com.example.event_managment.event_managment.bean.Event;
+import com.example.event_managment.event_managment.bean.Session;
 import com.example.event_managment.event_managment.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,18 @@ public class EventController {
     public ResponseEntity<String> updateEvent(@PathVariable String eventId){
         this.eventService.deleteEvent(Long.parseLong(eventId));
         return new ResponseEntity<>("{message : " + eventId + " deleted succesfully }" , HttpStatus.OK);
+    }
+
+    @PostMapping("/session")
+    public ResponseEntity<String> addSession(@RequestBody Session session) {
+        this.eventService.addSession(session);
+        return new ResponseEntity<>("{ message : " + session.getSessionId() + " added succesfully }", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/session")
+    public ResponseEntity<String> deleteEvent(@RequestBody Session session){
+        this.eventService.deleteSession(session);
+        return new ResponseEntity<>("{message : " + session.getSessionId() +" of event " + session.getEventId() + " deleted succesfully }" , HttpStatus.OK);
     }
 
 }
